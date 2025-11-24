@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MISHILATTE · Cafetería & Gatos en adopción</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fuente Google (opcional, pero le da toque profesional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --crema-claro: #fdf6ec;
+            --crema: #f5e6d3;
+            --crema-oscuro: #e3c7a8;
+            --marron: #8b5e3c;
+            --marron-oscuro: #4b2b16;
+            --accent: #d89b5c;
+            --texto: #3b2a1a;
+            --error: #c0392b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--crema-claro);
+            color: var(--texto);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER / NAV */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 246, 236, 0.94);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(211, 180, 143, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--crema-oscuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+            font-size: 0.95rem;
+        }
+
+        nav a {
+            position: relative;
+            padding-bottom: 0.15rem;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.2s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .btn-nav {
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid var(--marron);
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-nav:hover {
+            background: var(--marron);
+            color: #fff;
+        }
+
+        /* HERO */
+
+        .hero {
+            max-width: 1100px;
+            margin: 1.75rem auto 2.75rem;
+            padding: 0 1.25rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.1rem, 4vw, 2.8rem);
+            margin-bottom: 0.75rem;
+            color: var(--marron-oscuro);
+        }
+
+        .hero-text p {
+            font-size: 0.98rem;
+            max-width: 540px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.7rem;
+        }
+
+        .badge {
+            font-size: 0.78rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            border: 1px dashed var(--accent);
+            background: rgba(248, 226, 195, 0.6);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1.3rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--marron);
+            color: #fff;
+            box-shadow: 0 7px 16px rgba(139, 94, 60, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(139, 94, 60, 0.32);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--marron);
+            color: var(--marron-oscuro);
+        }
+
+        .btn-outline:hover {
+            background: var(--marron);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, #fbead2, #f4ddc1);
+            border-radius: 24px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 14px 35px rgba(155, 115, 80, 0.25);
+        }
+
+        .hero-visual-main {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 18px;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .hero-visual-main h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+            color: var(--marron-oscuro);
+        }
+
+        .hero-visual-main p {
+            font-size: 0.8rem;
+        }
+
+        .hero-cat {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 16px;
+            background-image: radial-gradient(circle at 20% 20%, #fff0da, #f2d6b0 60%, #e0b489);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cat::before,
+        .hero-cat::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #f7e0c1;
+            border-radius: 50%;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow:
+                -40px -45px 0 0 #fdf3e0,
+                40px -45px 0 0 #fdf3e0;
+        }
+
+        .hero-cat-face {
+            position: absolute;
+            width: 72px;
+            height: 72px;
+            background: #fef7ed;
+            border-radius: 50%;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 6px 0 rgba(182, 130, 81, 0.4);
+        }
+
+        .hero-cat-ear {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: #fef7ed;
+            top: 28%;
+            border-radius: 6px;
+            transform: rotate(45deg);
+        }
+
+        .hero-cat-ear.left {
+            left: 46%;
+        }
+
+        .hero-cat-ear.right {
+            right: 46%;
+        }
+
+        .hero-cat-eye {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #4b2b16;
+            border-radius: 50%;
+            top: 49%;
+        }
+
+        .hero-cat-eye.left {
+            left: 47%;
+        }
+
+        .hero-cat-eye.right {
+            right: 47%;
+        }
+
+        .hero-cat-mouth {
+            position: absolute;
+            width: 26px;
+            height: 18px;
+            border-bottom: 2px solid #4b2b16;
+            border-radius: 0 0 26px 26px;
+            top: 56%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-tag {
+            font-size: 0.75rem;
+            background: rgba(139, 94, 60, 0.9);
+            color: #fff;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            align-self: flex-start;
+        }
+
+        /* SECCIONES GENERALES */
+
+        section {
+            max-width: 1100px;
+            margin: 0 auto 2.5rem;
+            padding: 0 1.25rem;
+        }
+
+        section:last-of-type {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            color: var(--marron-oscuro);
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #7a5b3f;
+            margin-bottom: 1.4rem;
+        }
+
+        /* CARTA */
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.4rem;
+        }
+
+        .menu-block {
+            background: var(--crema);
+            border-radius: 18px;
+            padding: 1.2rem 1.1rem 1.1rem;
+            box-shadow: 0 8px 20px rgba(128, 86, 52, 0.12);
+            border: 1px solid rgba(199, 155, 106, 0.35);
+        }
+
+        .menu-block h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            color: var(--marron-oscuro);
+        }
+
+        .menu-block small {
+            font-size: 0.78rem;
+            color: #806048;
+        }
+
+        .menu-item {
+            margin-top: 0.85rem;
+        }
+
+        .menu-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .menu-item-desc {
+            font-size: 0.85rem;
+        }
+
+        .menu-item-sabor {
+            font-size: 0.8rem;
+            color: #6e533c;
+            margin-top: 0.15rem;
+            font-style: italic;
+        }
+
+        /* GATOS EN ADOPCIÓN */
+
+        .cats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.3rem;
+        }
+
+        .cat-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(199, 155, 106, 0.4);
+            box-shadow: 0 10px 24px rgba(116, 85, 56, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cat-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+
+        .cat-body {
+            padding: 0.85rem 0.95rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .cat-name {
+            font-weight: 600;
+            font-size: 0.98rem;
+        }
+
+        .cat-meta {
+            font-size: 0.8rem;
+            color: #7a5b3f;
+        }
+
+        .cat-desc {
+            font-size: 0.82rem;
+        }
+
+        .cat-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.6rem;
+        }
+
+        .label-chip {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            background: var(--crema);
+            border: 1px dashed var(--accent);
+        }
+
+        .btn-cat {
+            font-size: 0.8rem;
+            padding: 0.45rem 0.9rem;
+        }
+
+        /* FORMULARIO ADOPCIÓN */
+
+        .form-wrapper {
+            margin-top: 1rem;
+            background: #fff;
+            border-radius: 18px;
+            padding: 1.3rem 1.1rem 1.4rem;
+            border: 1px solid rgba(199, 155, 106, 0.5);
+            box-shadow: 0 8px 18px rgba(137, 96, 61, 0.18);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 0.85rem 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            border-radius: 999px;
+            border: 1px solid rgba(185, 143, 98, 0.9);
+            padding: 0.55rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: #fefaf4;
+            outline: none;
+            transition: border 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        textarea {
+            border-radius: 16px;
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(216, 155, 92, 0.2);
+            background: #fff;
+        }
+
+        .form-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: center;
+            margin-top: 0.9rem;
+            justify-content: space-between;
+        }
+
+        .form-note {
+            font-size: 0.75rem;
+            color: #7a5b3f;
+            max-width: 340px;
+        }
+
+        /* DONACIONES */
+
+        .donaciones-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 1.4rem;
+            align-items: flex-start;
+        }
+
+        .donacion-card {
+            background: var(--crema);
+            border-radius: 18px;
+            padding: 1.1rem;
+            border: 1px solid rgba(199, 155, 106, 0.5);
+            box-shadow: 0 8px 18px rgba(137, 96, 61, 0.15);
+            margin-bottom: 0.9rem;
+        }
+
+        .donacion-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .donacion-card p {
+            font-size: 0.85rem;
+        }
+
+        .donacion-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px dashed rgba(139, 94, 60, 0.5);
+            margin-top: 0.45rem;
+        }
+
+        .apadrina-box {
+            background: #fff;
+            border-radius: 18px;
+            padding: 1.1rem;
+            border: 1px solid rgba(199, 155, 106, 0.6);
+            box-shadow: 0 8px 20px rgba(153, 109, 71, 0.2);
+        }
+
+        .apadrina-box ul {
+            margin-left: 1rem;
+            margin-top: 0.35rem;
+            font-size: 0.85rem;
+        }
+
+        .apadrina-box li {
+            margin-bottom: 0.2rem;
+        }
+
+        .apadrina-box .btn {
+            margin-top: 0.6rem;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid rgba(199, 155, 106, 0.4);
+            background: #f8ead9;
+            padding: 1rem 1.25rem 1.3rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 840px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero {
+                margin-top: 1.2rem;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                display: none;
+            }
+
+            .nav-container {
+                justify-content: space-between;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                margin-bottom: 2rem;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-circle">Mi</div>
+            <div class="logo-text">MISHILATTE</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#carta">Carta</a></li>
+                <li><a href="#gatos">Gatos en adopción</a></li>
+                <li><a href="#adopcion">Formulario</a></li>
+                <li><a href="#donaciones">Donaciones & Apadrina</a></li>
+            </ul>
+        </nav>
+        <button class="btn-nav" onclick="document.getElementById('gatos').scrollIntoView({behavior:'smooth'})">
+            Reserva tu ronroneo
+        </button>
+    </div>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-text">
+            <h1>MISHILATTE · Café, gatos y segundas oportunidades 🐾</h1>
+            <p>
+                Una cafetería de ambiente acogedor donde puedes disfrutar de bebidas y comida deliciosa, 
+                mientras compartes espacio con gatos que buscan un hogar. Cada sorbo ayuda a un michi.
+            </p>
+            <div class="hero-badges">
+                <span class="badge">Zona cat-café con gatos en adopción</span>
+                <span class="badge">Menú dulce, salado y felino-friendly</span>
+                <span class="badge">Donaciones y apadrinamiento responsable</span>
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">
+                    Ver carta
+                </button>
+                <button class="btn btn-outline" onclick="document.getElementById('gatos').scrollIntoView({behavior:'smooth'})">
+                    Conoce a los gatos
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-visual-main">
+                <div>
+                    <h2>Un refugio en forma de café</h2>
+                    <p>
+                        Zona tranquila, aforo limitado para el bienestar de los gatos, y un ambiente suave en tonos crema
+                        pensado para leer, trabajar o simplemente disfrutar del ronroneo.
+                    </p>
+                </div>
+                <div class="hero-cat">
+                    <div class="hero-cat-ear left"></div>
+                    <div class="hero-cat-ear right"></div>
+                    <div class="hero-cat-face"></div>
+                    <div class="hero-cat-eye left"></div>
+                    <div class="hero-cat-eye right"></div>
+                    <div class="hero-cat-mouth"></div>
+                </div>
+            </div>
+            <span class="hero-tag">Cada café colabora con alimentación, cuidados y adopciones responsables 💛</span>
+        </div>
+    </section>
+
+    <!-- CARTA -->
+    <section id="carta">
+        <h2 class="section-title">Carta MISHILATTE</h2>
+        <p class="section-subtitle">
+            Clásicos con toque felino, bebidas especiales y opciones dulces y saladas para todos los gustos.
+        </p>
+
+        <h3 style="font-size:1.2rem; margin-bottom:0.7rem; color:var(--marron-oscuro);">CAFÉ · Clásicos con toque felino</h3>
+        <div class="menu-grid" style="margin-bottom:1.4rem;">
+            <article class="menu-block">
+                <h3>Latte “Michi Mimoso”</h3>
+                <p class="menu-item-desc">
+                    Café espresso suave con leche vaporizada y arte latte con forma de gato. Ideal para quienes disfrutan algo cremoso y reconfortante.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: balanceado, suave y tierno como un ronroneo.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Cappuccino “Gato Travieso”</h3>
+                <p class="menu-item-desc">
+                    Café intenso cubierto con espuma de leche y un toque de cacao espolvoreado con plantilla de huellitas.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: aromático y juguetón.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Espresso “Gato Negro”</h3>
+                <p class="menu-item-desc">
+                    Doble shot de espresso de tueste oscuro. Potente, misterioso y perfecto para quienes aman lo fuerte.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: intenso, con notas de chocolate amargo.
+                </p>
+            </article>
+        </div>
+
+        <h3 style="font-size:1.2rem; margin-bottom:0.7rem; color:var(--marron-oscuro);">Bebidas dulces y reconfortantes</h3>
+        <div class="menu-grid" style="margin-bottom:1.4rem;">
+            <article class="menu-block">
+                <h3>Mocha “Galleta de Gato”</h3>
+                <p class="menu-item-desc">
+                    Café espresso con chocolate derretido y leche vaporizada, coronado con crema batida y chispas de cacao.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: dulce, achocolatado, irresistible.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Chocolate caliente “Gatito Dormilón”</h3>
+                <p class="menu-item-desc">
+                    Chocolate artesanal con leche espumosa, canela y un toque de vainilla.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: acogedor, ideal para días fríos o tardes de lectura.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Caramel Latte “Michi Caramelo”</h3>
+                <p class="menu-item-desc">
+                    Latte con jarabe de caramelo casero y una pizca de sal marina.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: dulce-salado, perfecto equilibrio.
+                </p>
+            </article>
+        </div>
+
+        <h3 style="font-size:1.2rem; margin-bottom:0.7rem; color:var(--marron-oscuro);">Bebidas especiales sin café</h3>
+        <div class="menu-grid" style="margin-bottom:1.4rem;">
+            <article class="menu-block">
+                <h3>Matcha Latte “Verde Felino”</h3>
+                <p class="menu-item-desc">
+                    Té matcha japonés con leche de avena o almendra. Energético y saludable.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: herbal y cremoso, para gatos zen.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Chai Latte “Gata Oriental”</h3>
+                <p class="menu-item-desc">
+                    Infusión de té negro, canela, jengibre, cardamomo y leche vaporizada.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: especiado y aromático.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Smoothie “Gato Frutilla”</h3>
+                <p class="menu-item-desc">
+                    Mezcla de fresa, plátano y leche vegetal, con decoración de orejitas en crema.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: alegre, dulce y frutal.
+                </p>
+            </article>
+        </div>
+
+        <h3 style="font-size:1.2rem; margin-bottom:0.7rem; color:var(--marron-oscuro);">Bebidas frías y de temporada</h3>
+        <div class="menu-grid" style="margin-bottom:1.4rem;">
+            <article class="menu-block">
+                <h3>Frappe “Michi Helado”</h3>
+                <p class="menu-item-desc">
+                    Café frío batido con hielo, crema y jarabe de vainilla o caramelo.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: refrescante, dulce y cremoso.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Limonada “Gato Solar”</h3>
+                <p class="menu-item-desc">
+                    Limonada natural con menta y rodajas de fruta.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: cítrico, ligero y lleno de energía.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Té helado “Gato de Verano”</h3>
+                <p class="menu-item-desc">
+                    Té negro o verde con durazno, hierbabuena y un toque de miel.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: suave y perfumado.
+                </p>
+            </article>
+
+            <article class="menu-block">
+                <h3>Batido helado “Michi Cremoso”</h3>
+                <p class="menu-item-desc">
+                    Batido espeso preparado con helado artesanal (vainilla, chocolate o fresa), leche y crema batida.
+                    Decorado con galletitas en forma de orejitas.
+                </p>
+                <p class="menu-item-sabor">
+                    Sabor: dulce, frío y reconfortante, como un abrazo gatuno en verano.
+                </p>
+            </article>
+        </div>
+
+        <h3 class="section-title" style="font-size:1.3rem; margin-top:1.3rem;">Comida y snacks</h3>
+        <p class="section-subtitle" style="margin-bottom:1rem;">
+            Postres caseros, snacks salados y opciones para brunch o llevar.
+        </p>
+
+        <div class="menu-grid">
+            <!-- Postres y dulces -->
+            <article class="menu-block">
+                <h3>POSTRES Y DULCES</h3>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Galletas “Huella Dulce”</p>
+                    <p class="menu-item-desc">
+                        Galletas de mantequilla o avena con chips de chocolate, decoradas con forma de huellitas de gato.
+                        Crujientes por fuera, suaves por dentro y llenas de cariño.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Cheesecake “Gato Nube”</p>
+                    <p class="menu-item-desc">
+                        Pastel de queso cremoso con base de galleta y topping de frutos rojos o caramelo.
+                        Suave y aireado, tan ligero como un salto felino.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Cupcake “Michi Vainilla”</p>
+                    <p class="menu-item-desc">
+                        Mini pastel individual decorado con crema pastelera y orejitas de fondant.
+                        Ideal para acompañar el café o para sesiones de fotos “instagrameables”.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Brownie “Gato Goloso”</p>
+                    <p class="menu-item-desc">
+                        Brownie de chocolate belga con nueces o trozos de galleta, servido tibio con helado opcional.
+                        Denso, intenso y perfecto para compartir (o no).
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Tarta “Bigotes de Fresa”</p>
+                    <p class="menu-item-desc">
+                        Tarta artesanal rellena de crema pastelera y fresas frescas.
+                        Refrescante y colorida, como un día soleado con gatos.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Snacks salados -->
+            <article class="menu-block">
+                <h3>SNACKS SALADOS Y LIGEROS</h3>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Croissant “Gato Madrugador”</p>
+                    <p class="menu-item-desc">
+                        Hojaldre recién horneado, relleno de jamón y queso o versión vegetariana con espinaca y champiñones.
+                        Ligero, dorado y perfecto para el desayuno.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Sándwich “Michi Club”</p>
+                    <p class="menu-item-desc">
+                        Pan artesanal con pollo, lechuga, tomate, queso y salsa de la casa.
+                        Crujiente, completo y sabroso, como un gato curioso.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Tostadas “Felinas”</p>
+                    <p class="menu-item-desc">
+                        <strong>Tostada “gato ibérico”:</strong> Pan tostado con tomate rallado, un toque de aceite de oliva virgen extra y finas lonchas de jamón serrano.  
+                        <strong>Tostada “michi clásico”:</strong> Pan crujiente con mantequilla fundida y jamón york suave.  
+                        <strong>Tostada “gato verde”:</strong> Puré de aguacate con limón, semillas y toque de sal marina.  
+                        <strong>Tostada “caprese gatuna”:</strong> Tomate fresco, albahaca y mozzarella derretida sobre pan integral.  
+                        Coloridas, saludables y fotogénicas.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Combos -->
+            <article class="menu-block">
+                <h3>Combos y opciones especiales</h3>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">“Michi Brunch”</p>
+                    <p class="menu-item-desc">
+                        Café o té + croissant o tostada + mini postre + jugo natural.
+                        Un combo para disfrutar una mañana entre ronroneos.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">“Caja Gatuna para llevar”</p>
+                    <p class="menu-item-desc">
+                        Selección de bebida, snack y dulce, empaquetado en caja ecológica con diseño felino.
+                        Ideal para picnic, oficina o regalo solidario.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <p class="menu-item-title">Menú infantil “Pequeños Gatitos”</p>
+                    <p class="menu-item-desc">
+                        Mini sándwich, jugo natural y galletas en forma de gato.
+                        Pensado para los más pequeños (y sus futuros adoptantes).
+                    </p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- GATOS EN ADOPCIÓN -->
+    <section id="gatos">
+        <h2 class="section-title">Gatos en adopción</h2>
+        <p class="section-subtitle">
+            Ellos viven en la zona felina de MISHILATTE. Si te enamoras de alguno, puedes solicitar su adopción o apadrinar.
+        </p>
+
+        <div class="cats-grid">
+            <!-- Gato 1 -->
+            <article class="cat-card">
+                <img class="cat-img" src="https://placekitten.com/420/310" alt="Gato en adopción: Moka">
+                <div class="cat-body">
+                    <h3 class="cat-name">Moka</h3>
+                    <p class="cat-meta">2 años · Tricolor · Esterilizada</p>
+                    <p class="cat-desc">
+                        Dulce y observadora. Le encanta dormir cerca de la ventana y recibir mimos tranquilos.
+                    </p>
+                    <div class="cat-actions">
+                        <span class="label-chip">Ideal para pisos tranquilos</span>
+                        <button class="btn btn-primary btn-cat" data-gato="Moka">Quiero adoptarla</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gato 2 -->
+            <article class="cat-card">
+                <img class="cat-img" src="https://placekitten.com/421/310" alt="Gato en adopción: Latte">
+                <div class="cat-body">
+                    <h3 class="cat-name">Latte</h3>
+                    <p class="cat-meta">1 año · Atigrado · Vacunado</p>
+                    <p class="cat-desc">
+                        Juguetón y curioso. Se lleva bien con otros gatos y le encantan las plumas y los rascadores altos.
+                    </p>
+                    <div class="cat-actions">
+                        <span class="label-chip">Compatible con otros gatos</span>
+                        <button class="btn btn-primary btn-cat" data-gato="Latte">Quiero adoptarlo</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gato 3 -->
+            <article class="cat-card">
+                <img class="cat-img" src="https://placekitten.com/422/310" alt="Gato en adopción: Nube">
+                <div class="cat-body">
+                    <h3 class="cat-name">Nube</h3>
+                    <p class="cat-meta">3 años · Blanco y gris · Esterilizado</p>
+                    <p class="cat-desc">
+                        Muy tranquilo, perfecto para personas que buscan un compañero silencioso para leer o trabajar.
+                    </p>
+                    <div class="cat-actions">
+                        <span class="label-chip">Carácter zen</span>
+                        <button class="btn btn-primary btn-cat" data-gato="Nube">Quiero adoptarlo</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- FORMULARIO ADOPCIÓN -->
+    <section id="adopcion">
+        <h2 class="section-title">Formulario de adopción</h2>
+        <p class="section-subtitle">
+            Rellena este formulario si quieres adoptar a uno de nuestros gatos. Te contactaremos para una entrevista y visita.
+        </p>
+
+        <div class="form-wrapper">
+            <form>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="tuemail@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de contacto</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+34 ..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gato">Gato que quieres adoptar</label>
+                        <input type="text" id="gato" name="gato" placeholder="Selecciona desde la sección de gatos" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="experiencia">¿Has tenido gatos antes?</label>
+                        <select id="experiencia" name="experiencia" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="si-actualmente">Sí, actualmente tengo gatos</option>
+                            <option value="si-antes">Sí, he tenido gatos anteriormente</option>
+                            <option value="no">No, sería mi primer gato</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="vivienda">Tipo de vivienda</label>
+                        <select id="vivienda" name="vivienda" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="piso-interior">Piso interior</option>
+                            <option value="piso-con-terraza">Piso con terraza/balcón protegido</option>
+                            <option value="casa-con-jardin">Casa con jardín seguro</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:0.9rem;">
+                    <label for="mensaje">Cuéntanos sobre tu situación y por qué quieres adoptar</label>
+                    <textarea id="mensaje" name="mensaje" placeholder="Horario, personas con las que vives, otros animales en casa, etc." required></textarea>
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Enviar solicitud de adopción
+                    </button>
+                    <p class="form-note">
+                        Este formulario es una pre-solicitud. Nos pondremos en contacto contigo para continuar el 
+                        proceso de adopción responsable y resolver cualquier duda que tengas.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- DONACIONES Y APADRINAMIENTO -->
+    <section id="donaciones">
+        <h2 class="section-title">Donaciones & Apadrinamiento</h2>
+        <p class="section-subtitle">
+            Si no puedes adoptar pero quieres ayudar, puedes colaborar con donaciones puntuales o apadrinando a un gato.
+        </p>
+
+        <div class="donaciones-layout">
+            <div>
+                <article class="donacion-card">
+                    <h3>Donación puntual</h3>
+                    <p>
+                        Tu aporte se destina a comida, arena, medicación y cuidados veterinarios de los gatos que viven en MISHILATTE.
+                    </p>
+                    <div class="donacion-pill">
+                        💳 Nº cuenta / Bizum:
+                        <strong>ES00 0000 0000 00 0000000000</strong>
+                    </div>
+                </article>
+
+                <article class="donacion-card">
+                    <h3>Donación mensual</h3>
+                    <p>
+                        Puedes programar una transferencia mensual con la cantidad que elijas. 
+                        Incluso pequeñas aportaciones ayudan a mantener el espacio seguro y cómodo para ellos.
+                    </p>
+                    <div class="donacion-pill">
+                        📩 Escríbenos para gestionar tu donación recurrente: <strong>info@mishilatte.cat</strong>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="apadrina-box">
+                <h3>Apadrina a un gato</h3>
+                <p>
+                    El apadrinamiento te permite ayudar de forma directa a un gato concreto,
+                    aunque no puedas tenerlo en casa.
+                </p>
+                <ul>
+                    <li>Recibirás fotos y actualizaciones periódicas.</li>
+                    <li>Podrás visitarlo en la cafetería con cita previa.</li>
+                    <li>Tu aportación cubre parte de su comida y gastos veterinarios.</li>
+                </ul>
+                <button class="btn btn-outline" onclick="document.getElementById('adopcion').scrollIntoView({behavior:'smooth'})">
+                    Rellenar formulario para apadrinar
+                </button>
+            </aside>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p>© <span id="year"></span> MISHILATTE · Café & Gatos en adopción.</p>
+        <p>Proyecto solidario de adopción responsable. Hecho con cariño y muchos ronroneos 🐾</p>
+    </div>
+</footer>
+
+<script>
+    // Año dinámico en el footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Cuando pulsan "Quiero adoptar" en un gato, se autocompleta el nombre en el formulario
+    document.querySelectorAll(".btn-cat").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            var nombreGato = this.getAttribute("data-gato") || "";
+            var inputGato = document.getElementById("gato");
+            if (inputGato) {
+                inputGato.value = nombreGato;
+            }
+            document.getElementById("adopcion").scrollIntoView({ behavior: "smooth" });
+        });
+    });
+
+    // Comportamiento suave en links internos (por si el navegador no lo hace solo)
+    document.querySelectorAll('a[href^="#"]').forEach(function (enlace) {
+        enlace.addEventListener("click", function (e) {
+            var destinoId = this.getAttribute("href").substring(1);
+            var destino = document.getElementById(destinoId);
+            if (destino) {
+                e.preventDefault();
+                destino.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
